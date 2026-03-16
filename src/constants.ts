@@ -28,6 +28,8 @@ export const DEFAULT_TEMPERATURE = 0.7;
 
 // Auto model switching configuration
 export const AUTO_SWITCH_MODEL_MAP = {
+	"gemini-3-pro-preview": "gemini-3-flash-preview",
+	"gemini-3-flash-preview": "gemini-2.5-pro",
 	"gemini-2.5-pro": "gemini-2.5-flash"
 } as const;
 
@@ -46,6 +48,18 @@ export const REASONING_EFFORT_BUDGETS = {
 		flash: 24576,
 		default: 32768
 	}
+} as const;
+
+// Gemini 3 reasoning effort → thinkingLevel mapping
+// Gemini 3 uses thinkingLevel instead of thinkingBudget.
+// Pro only supports: "low", "high"
+// Flash supports: "minimal", "low", "medium", "high"
+// See: https://ai.google.dev/gemini-api/docs/thinking
+export const GEMINI3_EFFORT_TO_THINKING_LEVEL = {
+	none: { pro: "low", flash: "minimal" },
+	low: { pro: "low", flash: "low" },
+	medium: { pro: "low", flash: "medium" },
+	high: { pro: "high", flash: "high" }
 } as const;
 
 // Gemini safety categories
@@ -68,3 +82,21 @@ export const NATIVE_TOOLS_DEFAULTS = {
 	INCLUDE_GROUNDING_METADATA: true,
 	INCLUDE_SEARCH_ENTRY_POINT: false
 } as const;
+
+export const MIME_TYPE_MAP: Record<string, string> = {
+	mp3: "audio/mpeg",
+	mp4: "audio/mp4",
+	mpeg: "audio/mpeg",
+	mpga: "audio/mpeg",
+	m4a: "audio/mp4",
+	wav: "audio/wav",
+	webm: "audio/webm",
+	ogg: "audio/ogg",
+	oga: "audio/ogg",
+	flac: "audio/flac",
+	mov: "video/quicktime",
+	mpg: "video/mpeg",
+	avi: "video/x-msvideo",
+	wmv: "video/x-ms-wmv",
+	flv: "video/x-flv"
+};
